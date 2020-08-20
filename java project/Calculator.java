@@ -8,14 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.*;
 import java.io.*;
-
+import java.lang.Math.*;
 
 public class Calculator  extends JComponent implements ActionListener { 
         
        static String s = " ";
-       static double num1 = 0;
-       static double num2 = 0;
-       static double result = 0;
+       static double num1 = 0.0;
+       static double num2 = 0.0;
+       static double result = 0.0;
        static JTextField t1;
        static JButton btn1;
        static JButton btn2;
@@ -26,21 +26,27 @@ public class Calculator  extends JComponent implements ActionListener {
        static JButton btn7;
        static JButton btn8;
        static JButton btn9;
+       static JButton btn10;
        static JButton btn11;
-        public static void main(String[] args) {                        
+       static JButton btn12;
+       static JButton btn13;
+       
+       
+       public static void main(String[] args) {                        
                         
                 Calculator cal =  new Calculator(); 
                 JFrame frame = new JFrame("CALCULATOR");                
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                         frame.setLocation(700,200);
-                        frame.setSize(700,600);                        
-                   
+                        frame.setSize(700,600);       
+                        
+                        
                         frame.getContentPane();
-                        //frame.setBackground(Color.GRAY);                        
+                                               
                         frame.setLayout(null);                                             
                         t1 = new JTextField(10);
                         t1.setBounds(110,120,430,50);   
-                 
+                        
                  
                        btn1 = new JButton("1");
                        btn1.setBounds(200,200,50,50);
@@ -105,7 +111,7 @@ public class Calculator  extends JComponent implements ActionListener {
                         frame.add(btn9);
                         
                         
-                        JButton btn10 = new JButton(".");
+                        btn10 = new JButton(".");
                         btn10.setBounds(200,410,50,50);
                         btn10.setActionCommand(".");
                         btn10.addActionListener(cal);                
@@ -119,22 +125,22 @@ public class Calculator  extends JComponent implements ActionListener {
                         frame.add(btn11);
                        
                         
-                        JButton btn12 = new JButton("(");
-                        btn12.setBounds(340,410,50,50);
-                        btn12.setActionCommand("(");
+                        btn12 = new JButton("SQ");
+                        btn12.setBounds(340,410,60,50);
+                        btn12.setActionCommand("root");
                         btn12.addActionListener(cal);                
                         frame.add(btn12);
                        
                         
-                        JButton btn13 = new JButton(")");
-                         btn13.setBounds(410,410,50,50);
-                        btn13.setActionCommand(")");
+                        btn13 = new JButton("SR");
+                        btn13.setBounds(410,410,60,50);
+                        btn13.setActionCommand("sqr");
                         btn13.addActionListener(cal);                
                         frame.add(btn13);
                        
                         
                         JButton btn14 = new JButton("<-");
-                         btn14.setBounds(410,200,115,50);
+                        btn14.setBounds(410,200,115,50);
                         btn14.setActionCommand("<-");
                         btn14.addActionListener(cal);                
                         frame.add(btn14);
@@ -187,6 +193,7 @@ public class Calculator  extends JComponent implements ActionListener {
                                                             
                         frame.add(t1);
                         frame.add(cal);
+                        
                         frame.setVisible(true);
                    
         }//Main()
@@ -231,20 +238,26 @@ public class Calculator  extends JComponent implements ActionListener {
                         t1.setText(str);
                 }
                 else if(command.equals(".")) {
-                        String str = t1.getText() + '.';
+                        String str = t1.getText() + btn10.getText();
                         t1.setText(str);//btn010();
                 }
                 else if(command.equals("0")) {
                         String str = t1.getText() + btn11.getText();
                         t1.setText(str);
                 }
-                else if(command.equals("(")) {
-                        String str = t1.getText() + '(';
-                        t1.setText(str);                        
+                else if(command.equals("root")) {
+                        
+                        num1 = Double.valueOf(t1.getText());
+                        result = Math.sqrt(num1);
+                        String str = String.valueOf(result);
+                        t1.setText(str);              
                 }
-                else if(command.equals(")")) {
-                       String str = t1.getText() + ')';
-                        t1.setText(str); 
+                else if(command.equals("sqr")) {
+                       
+                        num1 = Double.valueOf(t1.getText());
+                        result = Math.pow(num1,2);
+                        String str = String.valueOf(result);
+                        t1.setText(str);
                 }
                 else if(command.equals("<-")) {
                         String str = t1.getText();
@@ -252,11 +265,10 @@ public class Calculator  extends JComponent implements ActionListener {
                         sb.deleteCharAt(sb.length()-1);
                         String s1 = sb.toString();
                         t1.setText(s1);
-                        //btn014();
                 }
                 else if(command.equals("%")) {
                         s = "%";
-                        num1 = Integer.valueOf(t1.getText());
+                        num1 = Double.valueOf(t1.getText());
                         t1.setText(" ");                       
                 }
                 else if(command.equals("C")) {
@@ -271,41 +283,41 @@ public class Calculator  extends JComponent implements ActionListener {
                        num2 = Double.valueOf(t1.getText());
                        
                        if("+".equals(s)) {                              
-                              result =  (num1 + num2);
+                              result = (num1 + num2);
                        }
                        else if("-".equals(s)) {
                                 result = (num1 - num2);
                        }
                        else if("*".equals(s)) {
-                                result =  (num1 * num2);
+                                result = (num1 * num2);
                        }
                        else if("/".equals(s)) {
-                                result =  (num1 / num2);
+                                result = (num1 / num2);
                        }
                        else {
-                                result =  (num1 % num2);
+                                result = (num1 % num2);
                        }     
                        String str = String.valueOf(result);         
                        t1.setText(str);                                            
                 }                
                  else if(command.equals("+")) {
                         s = "+";
-                        num1 = Integer.valueOf(t1.getText());
+                        num1 = Double.valueOf(t1.getText());
                         t1.setText(" ");
                 }
                  else if(command.equals("-")) {
                         s = "-";
-                        num1 = Integer.valueOf(t1.getText());
+                        num1 = Double.valueOf(t1.getText());
                         t1.setText(" ");
                 }                
                  else if(command.equals("*")) {
                          s = "*";
-                        num1 = Integer.valueOf(t1.getText());
+                        num1 = Double.valueOf(t1.getText());
                         t1.setText(" ");
                 }
                 else {
                         s = "/";
-                        num1 = Integer.valueOf(t1.getText());//btn018();
+                        num1 = Double.valueOf(t1.getText());//btn018();
                         t1.setText(" ");
                 }  
      }//actionPerformed()       
